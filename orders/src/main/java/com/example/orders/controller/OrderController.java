@@ -1,11 +1,13 @@
 package com.example.orders.controller;
 
-import com.example.orders.model.Product;
+import com.example.orders.model.Order;
 import com.example.orders.service.OrderService;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,11 +18,15 @@ public class OrderController {
 
   private final OrderService orderService;
 
-  /**
-   * Get all dishes available for ordering
-   */
-  @GetMapping("/all")
-  public ResponseEntity<List<Product>> getAvailableDishes() {
-    return ResponseEntity.ok().body(orderService.getAvailableProducts());
+
+  @PostMapping("/create")
+  public ResponseEntity<Void> createNewOrder(@RequestBody Order order) {
+    orderService.createNewOrder(order);
+    return ResponseEntity.ok().build();
+  }
+
+  @GetMapping("/{orderId}")
+  public ResponseEntity<Order> getOrderById(@PathVariable Long orderId) {
+    return ResponseEntity.ok(orderService.getOrderById(orderId));
   }
 }

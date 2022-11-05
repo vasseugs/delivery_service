@@ -1,9 +1,12 @@
 package com.example.orders.service;
 
-import com.example.orders.entity.ProductEntity;
-import com.example.orders.model.Product;
-import com.example.orders.repository.ProductRepository;
-import java.util.List;
+import com.example.orders.entity.OrderEntity;
+import com.example.orders.model.Order;
+import com.example.orders.repository.OrderItemRepository;
+import com.example.orders.repository.OrderRepository;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,12 +15,27 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class OrderService {
 
-  private final ProductRepository productRepository;
+  private final OrderRepository orderRepository;
+  private final OrderItemRepository orderItemRepository;
 
-  public List<Product> getAvailableProducts() {
-    return productRepository.findAll()
+  public void createNewOrder(Order order) {
+    var orderEntity = orderRepository.save(OrderEntity.builder()
+        .userId(order.getUserId())
+        .createdAt(Timestamp.from(Instant.now()))
+        .build());
+
+    var orderItemEntities = order.getItems()
         .stream()
-        .map(ProductEntity::toDto)
+        .map(item -> item.toEntity(orderEntity.getId()))
         .collect(Collectors.toList());
+
+    orderItemRepository.saveAll(orderItemEntities);
+  }
+
+  public Order getOrderById(Long orderId) {
+    return orderRepository.findById(orderId)
+        .map(OrderEntity::toOrder)
+        .orElseThrow(() ->
+            new NoSuchElementException(String.format("Order with id \"%d\" not fount", orderId)));
   }
 }

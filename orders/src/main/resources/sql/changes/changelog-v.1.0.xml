@@ -12,10 +12,9 @@
       </not>
     </preConditions>
     <createTable tableName="products">
-      <column name="id" type="BIGSERIAL">
+      <column name="name" type="TEXT">
         <constraints primaryKey="true" primaryKeyName="pk_products"/>
       </column>
-      <column name="name" type="TEXT"/>
       <column name="cost" type="NUMERIC"/>
     </createTable>
     <addUniqueConstraint tableName="products" columnNames="name"/>
@@ -31,4 +30,40 @@
     </sql>
   </changeSet>
 
+  <changeSet id="20221030-2" author="es-vasilev" failOnError="true">
+    <preConditions onFail="MARK_RAN">
+      <not>
+        <tableExists tableName="orders"/>
+      </not>
+    </preConditions>
+    <createTable tableName="orders">
+      <column name="id" type="BIGSERIAL">
+        <constraints primaryKey="true" primaryKeyName="pk_orders"/>
+      </column>
+      <column name="user_id" type="BIGINT"/>
+      <column name="created_at" type="TIMESTAMP"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="20221030-1" author="es-vasilev" failOnError="true">
+    <preConditions onFail="MARK_RAN">
+      <not>
+        <tableExists tableName="order_items"/>
+      </not>
+    </preConditions>
+    <createTable tableName="order_items">
+      <column name="id" type="BIGSERIAL">
+        <constraints primaryKey="true" primaryKeyName="pk_order_items"/>
+      </column>
+      <column name="order_id" type="BIGINT"/>
+      <column name="product_name" type="TEXT"/>
+      <column name="amount" type="INTEGER"/>
+    </createTable>
+    <addForeignKeyConstraint baseTableName="order_items" baseColumnNames="order_id"
+      constraintName="fk_order_items_orders_order_id"
+      referencedTableName="orders" referencedColumnNames="id"/>
+    <addForeignKeyConstraint baseTableName="order_items" baseColumnNames="product_name"
+      constraintName="fk_order_items_orders_product_name"
+      referencedTableName="products" referencedColumnNames="name"/>
+  </changeSet>
 </databaseChangeLog>

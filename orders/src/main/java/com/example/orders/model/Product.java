@@ -4,6 +4,7 @@ import com.example.orders.entity.ProductEntity;
 import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Represents anything that can be ordered - food, drinks etc.
@@ -11,6 +12,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Product {
 
   private String name;
