@@ -30,7 +30,7 @@
     </sql>
   </changeSet>
 
-  <changeSet id="20221030-2" author="es-vasilev" failOnError="true">
+  <changeSet id="20221030-1" author="es-vasilev" failOnError="true">
     <preConditions onFail="MARK_RAN">
       <not>
         <tableExists tableName="orders"/>
@@ -45,7 +45,7 @@
     </createTable>
   </changeSet>
 
-  <changeSet id="20221030-1" author="es-vasilev" failOnError="true">
+  <changeSet id="20221030-2" author="es-vasilev" failOnError="true">
     <preConditions onFail="MARK_RAN">
       <not>
         <tableExists tableName="order_items"/>
