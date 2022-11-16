@@ -5,31 +5,6 @@
   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
 		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-  <changeSet id="20221027-1" author="es-vasilev" failOnError="true">
-    <preConditions onError="MARK_RAN">
-      <not>
-        <tableExists tableName="products"/>
-      </not>
-    </preConditions>
-    <createTable tableName="products">
-      <column name="name" type="TEXT">
-        <constraints primaryKey="true" primaryKeyName="pk_products"/>
-      </column>
-      <column name="cost" type="NUMERIC"/>
-    </createTable>
-    <addUniqueConstraint tableName="products" columnNames="name"/>
-  </changeSet>
-
-  <changeSet id="20221027-2" author="es-vasilev" failOnError="true">
-    <sql>
-      insert into products (name, cost) values ('Burger', 170.0);
-      insert into products (name, cost) values ('Pizza', 700.0);
-      insert into products (name, cost) values ('Salad', 350.0);
-      insert into products (name, cost) values ('Cola', 120.0);
-      insert into products (name, cost) values ('Coffee', 350.0);
-    </sql>
-  </changeSet>
-
   <changeSet id="20221030-1" author="es-vasilev" failOnError="true">
     <preConditions onFail="MARK_RAN">
       <not>
@@ -41,6 +16,8 @@
         <constraints primaryKey="true" primaryKeyName="pk_orders"/>
       </column>
       <column name="user_id" type="BIGINT"/>
+      <column name="address" type="TEXT"/>
+      <column name="total_price" type="NUMERIC"/>
       <column name="created_at" type="TIMESTAMP"/>
     </createTable>
   </changeSet>
@@ -56,14 +33,11 @@
         <constraints primaryKey="true" primaryKeyName="pk_order_items"/>
       </column>
       <column name="order_id" type="BIGINT"/>
-      <column name="product_name" type="TEXT"/>
+      <column name="product_id" type="TEXT"/>
       <column name="amount" type="INTEGER"/>
     </createTable>
     <addForeignKeyConstraint baseTableName="order_items" baseColumnNames="order_id"
       constraintName="fk_order_items_orders_order_id"
       referencedTableName="orders" referencedColumnNames="id"/>
-    <addForeignKeyConstraint baseTableName="order_items" baseColumnNames="product_name"
-      constraintName="fk_order_items_orders_product_name"
-      referencedTableName="products" referencedColumnNames="name"/>
   </changeSet>
 </databaseChangeLog>
