@@ -8,26 +8,26 @@
   <changeSet id="20221116-1" author="es-vasilev" failOnError="true">
     <preConditions onError="MARK_RAN">
       <not>
-        <tableExists tableName="products"/>
+        <tableExists tableName="dishes"/>
       </not>
     </preConditions>
-    <createTable tableName="products">
+    <createTable tableName="dishes">
       <column name="id" type="BIGSERIAL">
-        <constraints primaryKey="true" primaryKeyName="pk_products"/>
+        <constraints primaryKey="true" primaryKeyName="pk_dishes"/>
       </column>
       <column name="name" type="TEXT"/>
       <column name="cost" type="NUMERIC"/>
     </createTable>
-    <addUniqueConstraint tableName="products" columnNames="name"/>
+    <addUniqueConstraint tableName="dishes" columnNames="name"/>
   </changeSet>
 
   <changeSet id="20221027-2" author="es-vasilev" failOnError="true">
     <sql>
-      insert into products (name, cost) values ('Pasta', 670.0);
-      insert into products (name, cost) values ('Pizza', 700.0);
-      insert into products (name, cost) values ('Salad', 350.0);
-      insert into products (name, cost) values ('Steak', 1220.0);
-      insert into products (name, cost) values ('Coffee', 150.0);
+      insert into dishes (name, cost) values ('Pasta', 670.0);
+      insert into dishes (name, cost) values ('Pizza', 700.0);
+      insert into dishes (name, cost) values ('Salad', 350.0);
+      insert into dishes (name, cost) values ('Steak', 1220.0);
+      insert into dishes (name, cost) values ('Coffee', 150.0);
     </sql>
   </changeSet>
 </databaseChangeLog>

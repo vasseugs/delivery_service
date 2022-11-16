@@ -1,6 +1,6 @@
 package rest;
 
-import com.example.orders.model.Product;
+import com.example.kitchen.model.Dish;
 import initializer.AbstractRestTest;
 import java.util.List;
 import org.assertj.core.api.Assertions;
@@ -12,17 +12,17 @@ import org.springframework.test.context.jdbc.Sql;
 
 @Sql(scripts = {
     "classpath:/sql/truncate_all_procedure_call.sql",
-    "classpath:/sql/products.sql"
+    "classpath:/sql/dishes.sql"
 })
-public class ProductRestTest extends AbstractRestTest {
+public class DishesRestTest extends AbstractRestTest {
 
   @Test
   void getAllAvailableProducts() {
     var allAvailableProducts = testRestTemplate.exchange(
-        "/products/all",
+        "/dishes/all",
         HttpMethod.GET,
         null,
-        new ParameterizedTypeReference<List<Product>>() {}
+        new ParameterizedTypeReference<List<Dish>>() {}
     );
 
     Assertions.assertThat(allAvailableProducts.getStatusCode()).isEqualTo(HttpStatus.OK);

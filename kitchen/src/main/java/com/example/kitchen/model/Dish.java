@@ -1,27 +1,30 @@
-package com.example.orders.model;
+package com.example.kitchen.model;
 
-import com.example.orders.entity.ProductEntity;
+import com.example.kitchen.entity.DishEntity;
 import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * Represents anything that can be ordered - food, drinks etc.
+ * Represents a single dish the kitchen can cook
  */
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Product {
+@Builder
+public class Dish {
 
   private String name;
   private BigDecimal cost;
 
-  public ProductEntity toEntity() {
-    return ProductEntity.builder()
+  public DishEntity toEntity() {
+    return DishEntity.builder()
         .name(this.name)
         .cost(this.cost)
         .build();
   }
+
 }

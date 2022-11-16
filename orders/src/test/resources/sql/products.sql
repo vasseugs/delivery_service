@@ -1,1 +1,0 @@
-INSERT INTO products (name, cost) VALUES ('testProduct', 0);

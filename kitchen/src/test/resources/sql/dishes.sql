@@ -1,0 +1,1 @@
+INSERT INTO dishes (name, cost) VALUES ('testProduct', 0);
