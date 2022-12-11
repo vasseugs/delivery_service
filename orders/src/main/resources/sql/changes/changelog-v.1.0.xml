@@ -33,7 +33,7 @@
         <constraints primaryKey="true" primaryKeyName="pk_order_items"/>
       </column>
       <column name="order_id" type="BIGINT"/>
-      <column name="product_id" type="TEXT"/>
+      <column name="dish_id" type="BIGINT"/>
       <column name="amount" type="INTEGER"/>
     </createTable>
     <addForeignKeyConstraint baseTableName="order_items" baseColumnNames="order_id"

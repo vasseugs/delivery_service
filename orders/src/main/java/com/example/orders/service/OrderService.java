@@ -18,7 +18,7 @@ public class OrderService {
   private final OrderRepository orderRepository;
   private final OrderItemRepository orderItemRepository;
 
-  public void createNewOrder(Order order) {
+  public Long createNewOrder(Order order) {
     var orderEntity = orderRepository.save(OrderEntity.builder()
         .userId(order.getUserId())
         .createdAt(Timestamp.from(Instant.now()))
@@ -30,12 +30,13 @@ public class OrderService {
         .collect(Collectors.toList());
 
     orderItemRepository.saveAll(orderItemEntities);
+    return orderEntity.getId();
   }
 
   public Order getOrderById(Long orderId) {
     return orderRepository.findById(orderId)
         .map(OrderEntity::toOrder)
         .orElseThrow(() ->
-            new NoSuchElementException(String.format("Order with id \"%d\" not fount", orderId)));
+            new NoSuchElementException(String.format("Order with id \"%d\" not found", orderId)));
   }
 }

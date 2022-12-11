@@ -10,13 +10,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class OrderItem {
 
-  private Product product;
+  private Long dishId;
   private int amount;
 
   public OrderItemEntity toEntity(Long orderId) {
     return OrderItemEntity.builder()
         .orderId(orderId)
-        .product(this.product.toEntity())
+        .dishId(this.dishId)
         .amount(this.amount)
         .build();
   }

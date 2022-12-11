@@ -33,9 +33,7 @@ public class OrderEntity {
   @Column(name = "user_id")
   private Long userId;
 
-  @OneToMany(
-      fetch = FetchType.EAGER
-  )
+  @OneToMany(fetch = FetchType.EAGER)
   @JoinColumn(name = "order_id", referencedColumnName = "id")
   private List<OrderItemEntity> items;
 

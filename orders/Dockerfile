@@ -1,4 +1,5 @@
 FROM openjdk:11
-COPY target/orders.jar orders.jar
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} orders.jar
 ENTRYPOINT ["java", "-jar", "orders.jar"]
 EXPOSE 8080

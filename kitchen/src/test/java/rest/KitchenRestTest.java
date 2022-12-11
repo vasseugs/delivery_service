@@ -11,15 +11,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.context.jdbc.Sql;
 
 @Sql(scripts = {
-    "classpath:/sql/truncate_all_procedure_call.sql",
-    "classpath:/sql/dishes.sql"
+    "/sql/truncate_all_procedure_call.sql",
+    "/sql/dishes.sql"
 })
-public class DishesRestTest extends AbstractRestTest {
+public class KitchenRestTest extends AbstractRestTest {
 
   @Test
   void getAllAvailableProducts() {
     var allAvailableProducts = testRestTemplate.exchange(
-        "/dishes/all",
+        "/kitchen/dishes/all",
         HttpMethod.GET,
         null,
         new ParameterizedTypeReference<List<Dish>>() {}

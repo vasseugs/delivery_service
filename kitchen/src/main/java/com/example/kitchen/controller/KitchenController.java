@@ -1,7 +1,7 @@
 package com.example.kitchen.controller;
 
 import com.example.kitchen.model.Dish;
-import com.example.kitchen.service.DishesService;
+import com.example.kitchen.service.KitchenService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -11,16 +11,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/dishes")
-public class DishesController {
+@RequestMapping("/kitchen")
+public class KitchenController {
 
-  private final DishesService dishesService;
+  private final KitchenService kitchenService;
 
   /**
    * Get all dishes available for ordering
    */
-  @GetMapping("/all")
+  @GetMapping("/dishes/all")
   public ResponseEntity<List<Dish>> getAvailableDishes() {
-    return ResponseEntity.ok().body(dishesService.getAllAvailableDishes());
+    return ResponseEntity.ok().body(kitchenService.getAllAvailableDishes());
   }
 }
