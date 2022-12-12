@@ -1,6 +1,8 @@
 package com.example.orders.service;
 
 import com.example.orders.entity.OrderEntity;
+import com.example.orders.event.EventPublisher;
+import com.example.orders.event.OrderCreatedEvent;
 import com.example.orders.model.Order;
 import com.example.orders.repository.OrderItemRepository;
 import com.example.orders.repository.OrderRepository;
@@ -14,6 +16,8 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class OrderService {
+
+  private final EventPublisher eventPublisher;
 
   private final OrderRepository orderRepository;
   private final OrderItemRepository orderItemRepository;
@@ -30,6 +34,8 @@ public class OrderService {
         .collect(Collectors.toList());
 
     orderItemRepository.saveAll(orderItemEntities);
+    eventPublisher.send(new OrderCreatedEvent(orderEntity.getId()));
+
     return orderEntity.getId();
   }
 
