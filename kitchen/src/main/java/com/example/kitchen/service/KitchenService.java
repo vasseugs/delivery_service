@@ -21,4 +21,10 @@ public class KitchenService {
         .collect(Collectors.toList());
   }
 
+  /**
+   * Cooks order with the specified id and requests its items from Order service
+   */
+  public void cookOrder(Long orderId) {
+
+  }
 }

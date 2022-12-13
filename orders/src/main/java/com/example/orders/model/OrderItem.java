@@ -5,6 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Represents an item of an order
+ */
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
