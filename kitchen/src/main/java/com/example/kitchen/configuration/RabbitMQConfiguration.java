@@ -18,20 +18,20 @@ public class RabbitMQConfiguration implements RabbitListenerConfigurer {
 
   @Bean
   @Qualifier("orderExchange")
-  public TopicExchange orderExchange(@Value("${order.exchange.name}") String orderExchangeName) {
+  public TopicExchange orderExchange(@Value("${orders.exchange.name}") String orderExchangeName) {
     return new TopicExchange(orderExchangeName);
   }
 
   @Bean
   @Qualifier("orderQueue")
-  public Queue orderCreatedQueue(@Value("${order.queue}") String queueName) {
+  public Queue orderCreatedQueue(@Value("${orders.queue}") String queueName) {
     return new Queue(queueName, true);
   }
 
   @Bean
   @Qualifier("orderCreatedBinding")
   public Binding orderCreatedBinding(Queue orderCreatedQueue, TopicExchange orderExchange,
-      @Value("${order.anything.binding-key}") String bindingKey) {
+      @Value("${orders.anything.binding-key}") String bindingKey) {
     return BindingBuilder
         .bind(orderCreatedQueue)
         .to(orderExchange)

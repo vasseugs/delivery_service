@@ -11,7 +11,7 @@ public class EventHandler {
 
   private final KitchenService kitchenService;
 
-  @RabbitListener(queues = "${order.queue}")
+  @RabbitListener(queues = "${orders.queue}")
   void handleOrderCreated(OrderCreatedEvent event) {
     kitchenService.cookOrder(event.getOrderId());
   }
